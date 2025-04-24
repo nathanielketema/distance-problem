@@ -5,12 +5,12 @@
 #include <utility>
 using namespace std; 
 
-const long DISTANCE = 1234;
+const long long DISTANCE = 1234;
 
 struct customHash {
-    long operator () (const pair<long, long>& p) const {
-        auto h1 = hash<long>{}(p.first);
-        auto h2 = hash<long>{}(p.second);
+    long long operator () (const pair<long long, long long>& p) const {
+        auto h1 = hash<long long>{}(p.first);
+        auto h2 = hash<long long>{}(p.second);
 
         return h1 ^ (h2 + 0x9e3779b9 + (h1 << 6) + (h1 >> 2));
     }
@@ -27,22 +27,22 @@ int main(int argc, char *argv[])
     ifstream inputFile;
     inputFile.open(argv[1]);
     
-    long n; 
-    long x, y;
-    unordered_set<pair<long, long>, customHash> points;
+    long long n; 
+    long long x, y;
+    unordered_set<pair<long long, long long>, customHash> points;
 
     inputFile >> n;
-    for (long i = 0; i < n; i++) {
+    for (long long i = 0; i < n; i++) {
         inputFile >> x >> y;
         points.emplace(x, y);
     }
 
-    unordered_set<pair<long, long>, customHash> deltaSet;
+    unordered_set<pair<long long, long long>, customHash> deltaSet;
     long long distanceSquare, dy_Square; 
-    long dy;
+    long long dy;
 
     distanceSquare = DISTANCE * DISTANCE;
-    for (long dx = 0; dx <= DISTANCE; dx++) {
+    for (long long dx = 0; dx <= DISTANCE; dx++) {
         dy_Square = distanceSquare - (dx * dx);
         dy = int(sqrt(dy_Square));
 
@@ -61,8 +61,8 @@ int main(int argc, char *argv[])
         }
     }
 
-    long count = 0;
-    pair<long, long> point2;
+    long long count = 0;
+    pair<long long, long long> point2;
     for (const auto& point1: points) {
         for (const auto& delta : deltaSet) {
             // p2 = (x + dx), (y + dy)
